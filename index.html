@@ -42,10 +42,25 @@
             max-width: var(--max-width);
         }
 
-      
+        
         header {
             margin-bottom: 50px;
             position: relative; 
+        }
+
+        /* 左上角 Logo 樣式 */
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .site-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
         }
 
         .hero-title {
@@ -318,6 +333,19 @@
             gap: 12px;
         }
 
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
         .footer-links {
             display: flex;
             gap: 16px;
@@ -347,6 +375,11 @@
                 <span class="dot-divider">·</span>
                 <a href="#experience">關於我</a>
             </nav>
+
+            <!-- 左上角 Logo 區塊 -->
+            <div class="header-brand">
+                <img src="images/logo.png" alt="Brady Logo" class="site-logo">
+            </div>
 
             <h1 class="hero-title">嗨，我是Brady</h1>
             <p class="hero-subtitle"></p>
@@ -443,7 +476,11 @@
 
         <!-- 頁尾 -->
         <footer>
-            <span>© 2026 CHEN PIN YU</span>
+            <div class="footer-left">
+                <!-- 頁尾 Logo -->
+                <img src="images/logo.png" alt="Brady Logo" class="footer-logo">
+                <span>© 2026 CHEN PIN YU</span>
+            </div>
             <div class="footer-links">
                 <a href="https://yz.periodchitai.trade/" target="_blank">Yz Studio</a>
                 <a href="https://www.instagram.com/p_y_chen_/" target="_blank">Instagram</a>
