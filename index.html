@@ -5,15 +5,14 @@
     <!-- 使用你提供的 PNG 圓形圖示 -->
     <link rel="icon" type="image/png" href="images/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brady個人網站｜Bradychen</title>
+    <title>Chen pin yu｜Bradychen</title>
     <style>
-        
         html {
             scroll-behavior: smooth;
         }
 
         :root {
-            --bg-color: #000000;
+            --bg-color: #020205;
             --text-main: #ffffff;
             --text-muted: #888888;
             --accent: #ffffff;
@@ -35,13 +34,66 @@
             display: flex;
             justify-content: center;
             -webkit-font-smoothing: antialiased;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 頂級藝術動態流體/煙霧背景 */
+        .art-bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+            background: #020205;
+        }
+
+        /* 套用動態 JS SVG 濾鏡的流體光影 */
+        .art-smoke-layer {
+            position: absolute;
+            top: -30%;
+            left: -30%;
+            width: 160%;
+            height: 160%;
+            background: radial-gradient(circle at 45% 45%, rgba(120, 140, 220, 0.32) 0%, rgba(50, 60, 110, 0.18) 35%, transparent 70%);
+            filter: url(#turbulence-filter) blur(45px);
+            opacity: 0.9;
+            animation: smokeMove 18s ease-in-out infinite alternate;
+        }
+
+        .art-smoke-layer-2 {
+            position: absolute;
+            bottom: -30%;
+            right: -30%;
+            width: 160%;
+            height: 160%;
+            background: radial-gradient(circle at 60% 60%, rgba(170, 190, 250, 0.25) 0%, rgba(70, 80, 140, 0.15) 40%, transparent 70%);
+            filter: url(#turbulence-filter) blur(65px);
+            opacity: 0.8;
+            animation: smokeMove2 24s ease-in-out infinite alternate;
+        }
+
+        @keyframes smokeMove {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(8%, -6%) scale(1.1) rotate(5deg); }
+            100% { transform: translate(-6%, 8%) scale(0.95) rotate(-5deg); }
+        }
+
+        @keyframes smokeMove2 {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            50% { transform: translate(-10%, 8%) scale(1.15) rotate(-7deg); }
+            100% { transform: translate(8%, -8%) scale(0.9) rotate(7deg); }
         }
 
         .wrapper {
             width: 100%;
             max-width: var(--max-width);
+            position: relative;
+            z-index: 1;
         }
-
         
         header {
             margin-bottom: 50px;
@@ -61,8 +113,10 @@
             height: 50px;
             border-radius: 50%;
             object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
+        /* 打字機標題與動態光標 */
         .hero-title {
             font-size: 3.2rem;
             font-weight: 800;
@@ -70,7 +124,29 @@
             color: #ffffff;
             margin-bottom: 8px;
             line-height: 1.2;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.45);
+            display: inline-block;
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 0.85em;
+            background-color: #ffffff;
+            margin-left: 4px;
+            vertical-align: middle;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .typing-cursor.active {
+            opacity: 1;
+            animation: cursorBlink 0.8s infinite;
+        }
+
+        @keyframes cursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         .hero-subtitle {
@@ -87,7 +163,6 @@
             line-height: 1.8;
             margin-bottom: 24px;
         }
-
         
         .hero-contact-links {
             display: flex;
@@ -103,19 +178,19 @@
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
-            background: #121212;
-            border: 1px solid #262626;
+            background: rgba(18, 18, 18, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 6px 16px;
             border-radius: 20px;
+            backdrop-filter: blur(8px);
             transition: background-color 0.2s, border-color 0.2s, color 0.2s;
         }
 
         .contact-btn:hover {
-            background: #222222;
-            border-color: #444444;
+            background: rgba(34, 34, 34, 0.9);
+            border-color: rgba(255, 255, 255, 0.4);
             color: #ffffff;
         }
-
         
         .top-shortcuts {
             position: absolute;
@@ -142,7 +217,6 @@
             color: #444444;
             user-select: none;
         }
-
        
         .section-title {
             font-size: 1.35rem;
@@ -164,23 +238,22 @@
             background-color: #ffffff;
             border-radius: 2px;
         }
-
         
         .hero-carousel {
             position: relative;
             width: 100%;
             height: 480px;
-            background-color: #111111;
+            background-color: rgba(15, 15, 18, 0.5);
             border-radius: 8px;
-            border: 1px solid #1f1f1f;
+            border: 1px solid rgba(255, 255, 255, 0.12);
             overflow: hidden;
             margin-bottom: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(12px);
         }
-
-       
+        
         .carousel-arrow {
             position: absolute;
             top: 50%;
@@ -210,7 +283,6 @@
 
         .carousel-arrow.prev { left: 20px; }
         .carousel-arrow.next { right: 20px; }
-
         
         .carousel-slide {
             position: absolute;
@@ -244,13 +316,11 @@
             background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.1) 60%, rgba(0, 0, 0, 0) 100%);
             z-index: 2;
         }
-
         
         section {
             margin-bottom: 70px;
             scroll-margin-top: 40px;
         }
-
         
         .skills-inline {
             display: flex;
@@ -261,12 +331,12 @@
         }
 
         .skills-inline span {
-            background-color: #121212;
+            background-color: rgba(18, 18, 18, 0.75);
             padding: 6px 16px;
             border-radius: 6px;
-            border: 1px solid #262626;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(6px);
         }
-
        
         .timeline-list {
             display: flex;
@@ -280,13 +350,12 @@
             gap: 16px;
         }
 
-        
         @media (max-width: 768px) {
             .top-shortcuts {
                 position: static;
                 margin-top: 24px;
                 padding-top: 16px;
-                border-top: 1px solid #1a1a1a;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
                 font-size: 1.05rem;
             }
         }
@@ -318,12 +387,11 @@
             font-size: 0.95rem;
             color: #aaaaaa;
         }
-
         
         footer {
             margin-top: 100px;
             padding-top: 28px;
-            border-top: 1px solid #1a1a1a;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 0.85rem;
             color: #666666;
             display: flex;
@@ -344,6 +412,7 @@
             height: 32px;
             border-radius: 50%;
             object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .footer-links {
@@ -364,9 +433,23 @@
 </head>
 <body>
 
+    <!-- 支援動態變形的 SVG 濾鏡 -->
+    <svg style="position: absolute; width: 0; height: 0;" aria-hidden="true">
+        <filter id="turbulence-filter">
+            <feTurbulence id="turb-element" type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="55" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+    </svg>
+
+    <!-- 藝術感流體背景 -->
+    <div class="art-bg-container">
+        <div class="art-smoke-layer"></div>
+        <div class="art-smoke-layer-2"></div>
+    </div>
+
     <div class="wrapper">
         
-        <header>
+        <header id="hero-header">
             
             <nav class="top-shortcuts">
                 <a href="#portfolio">影像作品</a>
@@ -381,12 +464,12 @@
                 <img src="images/logo.png" alt="Brady Logo" class="site-logo">
             </div>
 
-            <h1 class="hero-title">嗨，我是Brady</h1>
+            <!-- 打字機標題 -->
+            <h1 class="hero-title"><span id="typed-text"></span><span class="typing-cursor" id="typing-cursor"></span></h1>
             <p class="hero-subtitle"></p>
             <p class="hero-bio">
                 夢想實現的開端
             </p>
-            
             
             <div class="hero-contact-links">
                 <a href="https://www.instagram.com/p_y_chen_/" target="_blank" class="contact-btn">Instagram</a>
@@ -450,7 +533,8 @@
                 <span>LEGO Mindstorms EV3</span>
             </div>
         </section>
-<!-- 區塊：關於我 -->
+
+        <!-- 區塊：關於我 -->
         <section id="experience">
             <div class="section-title">關於我</div>
             <div class="timeline-list">
@@ -511,8 +595,78 @@
         </footer>
     </div>
 
-    <!-- 投影片切換控制腳本 -->
+    <!-- 動態背景變形、打字機與投影片控制腳本 -->
     <script>
+        // 用 JS 讓背景 SVG 濾鏡隨時間持續數值變動，產生真正流動、扭曲的煙霧效果
+        const turbElement = document.getElementById("turb-element");
+        let freqX = 0.012;
+        let freqY = 0.012;
+        let step = 0;
+
+        function animateTurbulence() {
+            step += 0.015;
+            // 利用 sin 函數讓噪點頻率隨時間規律且自然地波動
+            freqX = 0.01 + Math.sin(step) * 0.005;
+            freqY = 0.01 + Math.cos(step * 0.8) * 0.005;
+            turbElement.setAttribute('baseFrequency', `${freqX} ${freqY}`);
+            requestAnimationFrame(animateTurbulence);
+        }
+        animateTurbulence();
+
+
+        // 打字機特效腳本（放慢速度，打完後光標停留 1 秒再消失，滑走再滑上來會重置）
+        const textToType = "嗨，我是Brady";
+        const typedTextElement = document.getElementById("typed-text");
+        const cursorElement = document.getElementById("typing-cursor");
+        const headerElement = document.getElementById("hero-header");
+        
+        let typingTimeout = null;
+        let isTyping = false;
+
+        function startTyping() {
+            if (isTyping) return;
+            isTyping = true;
+            
+            typedTextElement.textContent = "";
+            cursorElement.classList.add("active");
+            
+            let charIndex = 0;
+
+            function type() {
+                if (charIndex < textToType.length) {
+                    typedTextElement.textContent += textToType.charAt(charIndex);
+                    charIndex++;
+                    typingTimeout = setTimeout(type, 220);
+                } else {
+                    setTimeout(() => {
+                        cursorElement.classList.remove("active");
+                    }, 1000);
+                }
+            }
+            type();
+        }
+
+        function resetTyping() {
+            clearTimeout(typingTimeout);
+            isTyping = false;
+            typedTextElement.textContent = "";
+            cursorElement.classList.remove("active");
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    startTyping();
+                } else {
+                    resetTyping();
+                }
+            });
+        }, { threshold: 0.3 });
+
+        observer.observe(headerElement);
+
+
+        // 投影片切換控制腳本
         let currentSlide = 0;
         const slides = document.querySelectorAll('.carousel-slide');
         const carousel = document.querySelector('.hero-carousel');
