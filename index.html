@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+    <meta charset="UTF-8">
+    <!-- 使用你提供的 PNG 圓形圖示 -->
     <link rel="icon" type="image/png" href="images/logo.png">
-    <meta name="description" content="陳品佑,Brady,Bradychen,chenpinyu。">
-    <meta name="keywords" content="陳品佑,Brady,Bradychen,chenpinyu。">
-    <title>Chen pin yu｜Bradychen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brady個人網站｜Bradychen</title>
     <style>
         html {
             scroll-behavior: smooth;
@@ -37,8 +38,20 @@
             overflow-x: hidden;
         }
 
-        /* 頂級藝術動態流體/煙霧背景 */
-        .art-bg-container {
+        /* 專為手機與電腦優化的全螢幕高效能動態背景 */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -2;
+            background: #020205;
+        }
+
+        /* 手機與電腦共用的流動光暈疊加層 */
+        .mobile-glow-bg {
             position: fixed;
             top: 0;
             left: 0;
@@ -46,45 +59,15 @@
             height: 100vh;
             pointer-events: none;
             z-index: -1;
-            overflow: hidden;
-            background: #020205;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(90, 110, 200, 0.22) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(140, 120, 220, 0.18) 0%, transparent 50%);
+            animation: bgGlowPulse 10s ease-in-out infinite alternate;
         }
 
-        /* 套用動態 JS SVG 濾鏡的流體光影 */
-        .art-smoke-layer {
-            position: absolute;
-            top: -30%;
-            left: -30%;
-            width: 160%;
-            height: 160%;
-            background: radial-gradient(circle at 45% 45%, rgba(120, 140, 220, 0.32) 0%, rgba(50, 60, 110, 0.18) 35%, transparent 70%);
-            filter: url(#turbulence-filter) blur(45px);
-            opacity: 0.9;
-            animation: smokeMove 18s ease-in-out infinite alternate;
-        }
-
-        .art-smoke-layer-2 {
-            position: absolute;
-            bottom: -30%;
-            right: -30%;
-            width: 160%;
-            height: 160%;
-            background: radial-gradient(circle at 60% 60%, rgba(170, 190, 250, 0.25) 0%, rgba(70, 80, 140, 0.15) 40%, transparent 70%);
-            filter: url(#turbulence-filter) blur(65px);
-            opacity: 0.8;
-            animation: smokeMove2 24s ease-in-out infinite alternate;
-        }
-
-        @keyframes smokeMove {
-            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            50% { transform: translate(8%, -6%) scale(1.1) rotate(5deg); }
-            100% { transform: translate(-6%, 8%) scale(0.95) rotate(-5deg); }
-        }
-
-        @keyframes smokeMove2 {
-            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            50% { transform: translate(-10%, 8%) scale(1.15) rotate(-7deg); }
-            100% { transform: translate(8%, -8%) scale(0.9) rotate(7deg); }
+        @keyframes bgGlowPulse {
+            0% { opacity: 0.7; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.08); }
         }
 
         .wrapper {
@@ -98,7 +81,23 @@
             margin-bottom: 50px;
             position: relative; 
         }
-       
+
+        /* 左上角 Logo 樣式 */
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .site-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
         /* 打字機標題與動態光標 */
         .hero-title {
             font-size: 3.2rem;
@@ -161,16 +160,17 @@
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
-            background: rgba(18, 18, 18, 0.75);
+            background: rgba(18, 18, 18, 0.85);
             border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 6px 16px;
             border-radius: 20px;
             backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             transition: background-color 0.2s, border-color 0.2s, color 0.2s;
         }
 
         .contact-btn:hover {
-            background: rgba(34, 34, 34, 0.9);
+            background: rgba(34, 34, 34, 0.95);
             border-color: rgba(255, 255, 255, 0.4);
             color: #ffffff;
         }
@@ -226,7 +226,7 @@
             position: relative;
             width: 100%;
             height: 480px;
-            background-color: rgba(15, 15, 18, 0.5);
+            background-color: rgba(15, 15, 18, 0.6);
             border-radius: 8px;
             border: 1px solid rgba(255, 255, 255, 0.12);
             overflow: hidden;
@@ -234,7 +234,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
         
         .carousel-arrow {
@@ -314,11 +315,12 @@
         }
 
         .skills-inline span {
-            background-color: rgba(18, 18, 18, 0.75);
+            background-color: rgba(18, 18, 18, 0.8);
             padding: 6px 16px;
             border-radius: 6px;
             border: 1px solid rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
         }
        
         .timeline-list {
@@ -416,19 +418,9 @@
 </head>
 <body>
 
-    <!-- 支援動態變形的 SVG 濾鏡 -->
-    <svg style="position: absolute; width: 0; height: 0;" aria-hidden="true">
-        <filter id="turbulence-filter">
-            <feTurbulence id="turb-element" type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="55" xChannelSelector="R" yChannelSelector="G" />
-        </filter>
-    </svg>
-
-    <!-- 藝術感流體背景 -->
-    <div class="art-bg-container">
-        <div class="art-smoke-layer"></div>
-        <div class="art-smoke-layer-2"></div>
-    </div>
+    <!-- 手機與電腦通用的高效能動態背景 Canvas -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="mobile-glow-bg"></div>
 
     <div class="wrapper">
         
@@ -441,6 +433,11 @@
                 <span class="dot-divider">·</span>
                 <a href="#experience">關於我</a>
             </nav>
+
+            <!-- 左上角 Logo 區塊 -->
+            <div class="header-brand">
+                <img src="images/logo.png" alt="Brady Logo" class="site-logo">
+            </div>
 
             <!-- 打字機標題 -->
             <h1 class="hero-title"><span id="typed-text"></span><span class="typing-cursor" id="typing-cursor"></span></h1>
@@ -562,6 +559,8 @@
         <!-- 頁尾 -->
         <footer>
             <div class="footer-left">
+                <!-- 頁尾 Logo -->
+                <img src="images/logo.png" alt="Brady Logo" class="footer-logo">
                 <span>© 2026 CHEN PIN YU</span>
             </div>
             <div class="footer-links">
@@ -571,23 +570,59 @@
         </footer>
     </div>
 
-    <!-- 動態背景變形、打字機與投影片控制腳本 -->
+    <!-- 手機與電腦皆可流暢執行的動畫與互動腳本 -->
     <script>
-        // 用 JS 讓背景 SVG 濾鏡隨時間持續數值變動，產生真正流動、扭曲的煙霧效果
-        const turbElement = document.getElementById("turb-element");
-        let freqX = 0.012;
-        let freqY = 0.012;
-        let step = 0;
+        // 手機與電腦通用的動態光暈背景 Canvas
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
 
-        function animateTurbulence() {
-            step += 0.015;
-            // 利用 sin 函數讓噪點頻率隨時間規律且自然地波動
-            freqX = 0.01 + Math.sin(step) * 0.005;
-            freqY = 0.01 + Math.cos(step * 0.8) * 0.005;
-            turbElement.setAttribute('baseFrequency', `${freqX} ${freqY}`);
-            requestAnimationFrame(animateTurbulence);
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
-        animateTurbulence();
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // 建立流動光暈球體陣列
+        let orbs = [];
+        const orbCount = window.innerWidth < 768 ? 3 : 5; // 手機減少數量以確保極致流暢
+        
+        for (let i = 0; i < orbCount; i++) {
+            orbs.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 250 + 200,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                color: i % 2 === 0 ? 'rgba(80, 110, 190, 0.28)' : 'rgba(130, 90, 220, 0.2)'
+            });
+        }
+
+        function animateBg() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            orbs.forEach(orb => {
+                orb.x += orb.vx;
+                orb.y += orb.vy;
+
+                if (orb.x < -150) orb.x = canvas.width + 150;
+                if (orb.x > canvas.width + 150) orb.x = -150;
+                if (orb.y < -150) orb.y = canvas.height + 150;
+                if (orb.y > canvas.height + 150) orb.y = -150;
+
+                let gradient = ctx.createRadialGradient(orb.x, orb.y, 0, orb.x, orb.y, orb.radius);
+                gradient.addColorStop(0, orb.color);
+                gradient.addColorStop(1, 'transparent');
+
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(orb.x, orb.y, orb.radius, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            requestAnimationFrame(animateBg);
+        }
+        animateBg();
 
 
         // 打字機特效腳本（放慢速度，打完後光標停留 1 秒再消失，滑走再滑上來會重置）
